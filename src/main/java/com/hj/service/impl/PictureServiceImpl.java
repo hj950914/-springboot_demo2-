@@ -6,9 +6,7 @@ import com.hj.service.PictureService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -39,11 +37,31 @@ public class PictureServiceImpl implements PictureService {
             e.printStackTrace();
         }
 
-
     }
 
     @Override
     public List<Picture> getAllPhoto() {
-        return pictureMapper.selectAllPhoto();
+        List<Picture> pictures = pictureMapper.selectAllPhoto();
+        return pictures;
+    }
+
+    /**
+     * 此方法只在测试中使用
+     */
+    @Override
+    public void copyAllPtoto() {
+        List<Picture> pictures = pictureMapper.selectAllPhoto();
+        //将图片继续存储到项目路径下
+        for (int i = 0; i < pictures.size(); i++) {
+            try {
+                BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(
+                        "/Users/huangjie/IdeaProject03/springboot_demo2/src/main/resources/static/images/lmm" + pictures.get(i).getId() + ".jpg"));
+                bos.write(pictures.get(i).getPic());
+                bos.flush();
+                bos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

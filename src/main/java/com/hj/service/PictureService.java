@@ -22,4 +22,9 @@ public interface PictureService {
      * @return
      */
     public List<Picture> getAllPhoto();
+
+    /**
+     * 将数据库里面的图片拷贝到项目里
+     */
+    public void copyAllPtoto();
 }
