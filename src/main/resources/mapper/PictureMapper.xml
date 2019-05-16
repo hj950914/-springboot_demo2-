@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hj.mapper.PictureMapper">
+
+    <sql id="userColumn">
+        id,pic,description
+    </sql>
+
+    <!--查询全部图片-->
+    <select id="selectAllPhoto" resultType="com.hj.entity.Picture">
+        select
+        <include refid="userColumn"/>
+        from picture
+    </select>
+    <!--添加照片-->
+    <insert id="insertPtoto" parameterType="com.hj.entity.Picture" useGeneratedKeys="true" keyProperty="id">
+        insert into picture (pic,description)
+        values (#{pic},#{description})
+    </insert>
+</mapper>
