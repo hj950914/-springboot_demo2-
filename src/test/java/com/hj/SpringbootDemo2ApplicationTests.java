@@ -1,13 +1,19 @@
 package com.hj;
 
+import com.hj.mapper.PictureBestMapper;
 import com.hj.mapper.PictureMapper;
+import com.hj.service.PictureBestService;
 import com.hj.service.PictureService;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -62,4 +68,28 @@ public class SpringbootDemo2ApplicationTests {
         pictureService.copyAllPtoto();
     }*/
 
+
+    /**
+     * ********************************************************************************
+     * 模拟从前端添加图片进数据库
+     */
+    @Resource
+    private PictureBestMapper pictureBestMapper;
+    @Autowired
+    private PictureBestService pictureBestService;
+
+    @Test
+    public void test1() {
+        FileInputStream fis = null;
+        BufferedInputStream bis = null;
+        try {
+            fis = new FileInputStream("/Users/huangjie/Desktop/pictures/images/lmm2.jpg");
+            bis = new BufferedInputStream(fis);
+            byte[] bytes = new byte[fis.available()];
+            bis.read(bytes);
+            pictureBestService.addPtotoPath(bytes, "test2.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

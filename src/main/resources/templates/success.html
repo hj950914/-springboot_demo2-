@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
 <body>
-<!--使用th:text属性,设置元素中的文本,表达式${}可以获取作用域中的数据¬-->
-<div th:text="${name}"></div>
+<meta charset="UTF-8">
+<title>Title</title>
+<form action="add" method="post" enctype="multipart/form-data">
+    <input type='text' name='textfield' id='textfield' class='txt'/>
+    <input type="file" name="file" class="file" id="fileField" size="28"
+           onchange="document.getElementById('textfield').value=this.value"/>
+    <input type="submit" name="submit" class="btn" value="上传"/>
+</form>
+
 </body>
 </html>
