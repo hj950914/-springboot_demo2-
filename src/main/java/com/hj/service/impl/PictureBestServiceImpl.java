@@ -34,8 +34,8 @@ public class PictureBestServiceImpl implements PictureBestService {
         FileOutputStream fos = null;
         BufferedOutputStream bos = null;
         //图片路径保存的地址(这里保存的是本地)
-        //String path = "/Users/huangjie/Desktop/pictures/images/" + photoName;
-        String path = "/home/www/static/images/" + photoName;//这里保存服务器
+        String path = "/Users/huangjie/Desktop/pictures/images/" + photoName;
+        //String path = "/home/www/static/images/" + photoName;//这里保存服务器
         try {
             //图片保存到本地
             fos = new FileOutputStream(path);
@@ -74,8 +74,8 @@ public class PictureBestServiceImpl implements PictureBestService {
         for (PictureBest p : list) {
             PictureBest pictureBest = new PictureBest();
             //此处的字符串截取只对对应本地电脑
-            //String newPath = StringUtil.sub(p.getPath());
-            String newPath = StringUtil.sub1(p.getPath());//远程服务器路径截取
+            String newPath = StringUtil.sub(p.getPath());
+            //String newPath = StringUtil.sub1(p.getPath());//远程服务器路径截取
             pictureBest.setPath(newPath);
             pictureBest.setPid(p.getPid());
             //加入list
