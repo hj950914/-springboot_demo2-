@@ -87,7 +87,7 @@ public class SpringbootDemo2ApplicationTests {
             bis = new BufferedInputStream(fis);
             byte[] bytes = new byte[fis.available()];
             bis.read(bytes);
-            pictureBestService.addPtotoPath(bytes, "test2.jpg");
+            pictureBestService.addPtotoPath(bytes, "");
         } catch (IOException e) {
             e.printStackTrace();
         }

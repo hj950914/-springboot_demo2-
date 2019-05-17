@@ -43,16 +43,20 @@ public class PictureBestController {
      * 进入图片上传页面
      */
     @RequestMapping("/add")
-    public String test2(@RequestParam("file") MultipartFile[] files) {
-        if (files[0] != null) {
+    public String test2(@RequestParam(required = false, value = "file") MultipartFile[] files, Model model) {
+        if (files[0] == null) {
+            return "index2";
+        } else {
             try {
                 byte[] bytes = files[0].getBytes();
                 pictureBestService.addPtotoPath(bytes, files[0].getOriginalFilename());
+                List<PictureBest> allPhotoPath = pictureBestService.getAllPhotoPath();
+                model.addAttribute("allPhotoPath", allPhotoPath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return "index2";
         }
-        return "success";
     }
 
     /**
@@ -60,7 +64,7 @@ public class PictureBestController {
      */
     @RequestMapping("/enter")
     public String test2() {
-        return "success";
+        return "submit";
     }
 
 }
