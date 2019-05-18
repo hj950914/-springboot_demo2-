@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,7 +37,11 @@ public class PictureBestController {
     @GetMapping("/love")
     public String test1(Model model) {
         List<PictureBest> allPhotoPath = pictureBestService.getAllPhotoPath();
+        Collections.reverse(allPhotoPath);//集合反转
         model.addAttribute("allPhotoPath", allPhotoPath);
+        for (PictureBest p:allPhotoPath){
+            System.out.print(p+"  ");
+        }
         System.out.println("*********************PictureBestController**************");
         return "index2";
     }
@@ -53,6 +58,7 @@ public class PictureBestController {
                 byte[] bytes = files[0].getBytes();
                 pictureBestService.addPtotoPath(bytes, files[0].getOriginalFilename());
                 List<PictureBest> allPhotoPath = pictureBestService.getAllPhotoPath();
+                Collections.reverse(allPhotoPath);//集合反转
                 model.addAttribute("allPhotoPath", allPhotoPath);
             } catch (IOException e) {
                 e.printStackTrace();
