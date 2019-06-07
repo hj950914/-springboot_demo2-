@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -39,8 +37,8 @@ public class PictureBestController {
         List<PictureBest> allPhotoPath = pictureBestService.getAllPhotoPath();
         Collections.reverse(allPhotoPath);//集合反转
         model.addAttribute("allPhotoPath", allPhotoPath);
-        for (PictureBest p:allPhotoPath){
-            System.out.print(p+"  ");
+        for (PictureBest p : allPhotoPath) {
+            System.out.print(p + "  ");
         }
         System.out.println("*********************PictureBestController**************");
         return "index2";
@@ -50,7 +48,7 @@ public class PictureBestController {
      * 进入图片上传页面
      */
     @RequestMapping("/add")
-    public String test2(@RequestParam(required = false, value = "file") MultipartFile[] files, Model model, HttpServletRequest request, HttpServletResponse response) {
+    public String test2(@RequestParam(required = false, value = "file") MultipartFile[] files, Model model) {
         if (files[0] == null) {
             return "index2";
         } else {
