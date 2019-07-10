@@ -7,10 +7,9 @@ import com.hj.util.StringUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -32,16 +31,20 @@ public class PictureBestServiceImpl implements PictureBestService {
     @Override
     public void addPtotoPath(byte[] bytes, String photoName) {
         FileOutputStream fos = null;
-        BufferedOutputStream bos = null;
+        //BufferedOutputStream bos = null;
+        OutputStreamWriter osw = null;
+        BufferedWriter bw = null;
         //图片路径保存的地址(这里保存的是本地)
-        //String path = "/Users/huangjie/Desktop/pictures/images/" + photoName;
-        String path = "/home/www/static/images/" + photoName;//这里保存服务器
+        String path = "/Users/huangjie/Desktop/pictures/images/" + photoName;
+        //String path = "/home/www/static/images/" + photoName;//这里保存服务器
         try {
             //图片保存到本地
             fos = new FileOutputStream(path);
-            bos = new BufferedOutputStream(fos);
-            bos.write(bytes);
-            bos.flush();
+            //bos = new BufferedOutputStream(fos);
+            osw = new OutputStreamWriter(fos);
+            bw = new BufferedWriter(osw);
+            bw.write(Arrays.toString(bytes));
+            bw.flush();
             //图片路径保存到数据库
             pictureBestMapper.insertPhotoPath(path);
         } catch (IOException e) {
@@ -50,8 +53,10 @@ public class PictureBestServiceImpl implements PictureBestService {
             try {
                 if (fos != null)
                     fos.close();
-                if (bos != null)
-                    bos.close();
+                if (osw != null)
+                    osw.close();
+                if (bw != null)
+                    bw.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -74,8 +79,8 @@ public class PictureBestServiceImpl implements PictureBestService {
         for (PictureBest p : list) {
             PictureBest pictureBest = new PictureBest();
             //此处的字符串截取只对应本地电脑
-            //String newPath = StringUtil.sub(p.getPath());
-            String newPath = StringUtil.sub1(p.getPath());//远程服务器路径截取
+            String newPath = StringUtil.sub(p.getPath());
+            //String newPath = StringUtil.sub1(p.getPath());//远程服务器路径截取
             pictureBest.setPath(newPath);
             pictureBest.setPid(p.getPid());
             //加入list
